@@ -1,13 +1,21 @@
+// create a div and a p tag
+// depending on whether the todo is complete, give the div the appropriate css class ('complete' or 'incomplete')
+// add the 'todo' css class no matter what
+// put the todo's text into the p tag
+// append stuff
+// return the div
+
 export function renderTodo(todo) {
-    // create a div and a p tag
-    
-    // depending on whether the todo is complete, give the div the appropriate css class ('complete' or 'incomplete')
+    const todosEl = document.createElement('div');
+    const todoEl = document.createElement('p');
 
-    // add the 'todo' css class no matter what
+    todoEl.textContent = `${todo}`;
 
-    // put the todo's text into the p tag
+    todoEl.textContent = '';
 
-    // append stuff
-    
-    // return the div
+    //catEl.classList.add('cat-box');
+
+    //catEl.append(nameEl, img);
+
+    //return catEl;
 }

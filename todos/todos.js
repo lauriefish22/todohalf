@@ -31,10 +31,23 @@ todoForm.addEventListener('submit', async (e) => {
     fetchAndDisplayItems();
 });
 
-//async function fetchAndDisplayItems() {
-// clear the container (.textContent = '')
-// fetch the user's todos from supabase
-// loop through the user's todos
+async function fetchAndDisplayItems() {
+    // clear the container (.textContent = '')
+    todosEl.textContext = '';
+    // fetch the user's todos from supabase
+    const todos = await getTodos();
+    todoDataArr = todos;
+
+    // loop through the user's todos
+    for (let todo of todoDataArr) {
+        const todosAdded = renderTodo(todo);
+        todosAdded.addEventListener('click', async () => {
+            await completeTodo(todo.id);
+            fetchAndDisplayItems();
+        });
+        todosEl.append(todosAdded);
+    }
+}
 // for each todo, render a new todo DOM element using your render function
 // then add an event listener to each todo
 // on click, update the todo in supabase
@@ -46,16 +59,6 @@ window.addEventListener('load', async () => {
     // call displayTodos
     fetchAndDisplayItems();
 });
-async function fetchAndDisplayItems() {
-    todos = await getTodos();
-
-    for (let todo of todos) {
-        //console.log(todo);
-        const todoEl = document.createElement('div');
-        todoEl.textContent = `${todo}`;
-        todoForm.append(todoEl);
-    }
-}
 
 logoutButton.addEventListener('click', () => {
     logout();
