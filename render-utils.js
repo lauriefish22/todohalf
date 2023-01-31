@@ -6,16 +6,8 @@
 // return the div
 
 export function renderTodo(todo) {
-    const todosEl = document.createElement('div');
     const todoEl = document.createElement('p');
+    todoEl.textContent = todo.todo;
 
-    todoEl.textContent = `${todo}`;
-
-    todoEl.textContent = '';
-
-    //catEl.classList.add('cat-box');
-
-    //catEl.append(nameEl, img);
-
-    //return catEl;
+    return todoEl;
 }

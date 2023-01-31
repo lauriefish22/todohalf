@@ -5,11 +5,12 @@ const SUPABASE_KEY =
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createTodo(todo) {
+    console.log(todo);
     // create a single incomplete todo with the correct 'todo' property for this user in supabase
-    const { data, error } = await client.from('todos').insert([todo]);
+    const response = await client.from('todos').insert([{ todo: todo }]);
 
     // once you have a response from supabase, comment this back in:
-    //return checkError(response);
+    return response.data;
 }
 
 export async function deleteAllTodos() {
@@ -18,10 +19,10 @@ export async function deleteAllTodos() {
 }
 
 export async function getTodos() {
-    const { data, error } = await client.from('todos').select('*');
+    const response = await client.from('todos').select('*').order('complete');
     // get all todos for this user from supabase
     // once you have a response from supabase, comment this back in:
-    //return checkError(response);
+    return response.data;
 }
 
 export async function completeTodo(id) {
@@ -32,17 +33,17 @@ export async function completeTodo(id) {
     return response.data;
 }
 
-export function getUser() {
+export async function getUser() {
     return client.auth.session() && client.auth.session().user;
 }
 
-export function checkAuth() {
+export async function checkAuth() {
     const user = getUser();
 
     if (!user) location.replace('../');
 }
 
-export function redirectIfLoggedIn() {
+export async function redirectIfLoggedIn() {
     const user = getUser();
     if (user) {
         location.replace('./todos');
@@ -67,6 +68,5 @@ export async function logout() {
     window.location.replace('../');
 }
 
-function checkError({ data, error }) {
-    return error ? console.error(error) : data;
-}
+//function checkError({ data, error }) {
+//return error ? console.error(error) : data;
